@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <h1 class="font-weight-bold text-center">{{ category.name|title }}</h1>
+    <div class="row mt-4">
+        {% for foo in category.adv_category.all %}
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-auto ">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 class="mb-0">{{ foo.title }}</h3>
+                        <div class="mb-1 text-muted">{{ foo.date_creation }}</div>
+                        <p class="card-text mb-auto border-top border-bottom">{{ foo.description|truncatechars:20 }}</p>
+                        <h3 class="mb-1">{{ foo.price }}.грн</h3>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ foo.get_absolute_url }}">Подробнее...</a>
+                            <small class="text-muted">Количество просмотров {{ foo.count_view }}</small>
+                        </div>
+                    </div>
+                    <svg focusable="false" role="img" width="200" height="250">
+                        <rect height="100%" width="100%" fill="#55595c"></rect>
+                        <text x="40%" y="50%" fill="#eceeef">Photo</text>
+                    </svg>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+        <div class="text-center mb-2">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary">prev</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-success">next</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock main %}

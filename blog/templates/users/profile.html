@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <h2 class="font-weight-bold text-center mt-5 mb-5">{{ user.name }} {{ user.surname }}</h2>
+    <div class="card-text mb-auto border-top border-bottom">
+        <h4 class="mb-2">Контактная информация: </h4>
+        <h4 class="mb-2">Email: {{ user.email }}</h4>
+        <h4 class="mb-2">Контактный телефон: {{ user.phone }}</h4>
+        <h4 class="mb-2">Дата регистрации на сайте: {{ user.date_joined }}</h4>
+    </div>
+    <h4 class="mb-3 mt-3">Ваши объявления:</h4>
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h4 class="font-weight-bold text-center">Опубликованы</h4>
+        {% for foo in adv_con %}
+            {% if foo.in_active %}
+                <div class="media text-muted pt-3">
+                    <div class="media-body pb-3 mb-0 small border-bottom border-gray">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <strong class="text-dark">{{ foo.title }}</strong>
+                            <a href="{% url 'adv_board:adv_edit' foo.pk %}">Редактировать</a>
+                        </div>
+                        <span class="d-block">{{ foo.date_creation }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h4 class="font-weight-bold text-center">На проверке у администрации сайта</h4>
+        {% for foo in adv_con %}
+            {% if foo.in_active %}
+            {% else %}
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-dark">{{ foo.title }}</strong>
+                        <a href="{% url 'adv_board:adv_edit' foo.pk %}">Редактировать</a>
+                    </div>
+                    <span class="d-block">{{ foo.date_creation }}</span>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+        <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h4 class="font-weight-bold text-center">Заблокированые администрацией сайта</h4>
+        {% for foo in adv_con %}
+            {% if foo.is_locked %}
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small border-bottom border-gray">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <strong class="text-dark">{{ foo.title }}</strong>
+                        <a href="{% url 'adv_board:adv_edit' foo.pk %}">Редактировать</a>
+                    </div>
+                    <span class="d-block">{{ foo.date_creation }}</span>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="text-center">
+    <a class="btn btn-success" href="{% url 'contacts:contact-us' %}">Для связи с администрацией сайта</a>
+    </div>
+{% endblock %}

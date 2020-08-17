@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block main %}
+    <div class="text-center">
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            <h1 class="h3 mb-3 font-weight-normal">Ввойдите в систему</h1>
+            <div>
+                <label for="id_username" class="sr-only">Email:</label>
+                <input type="text" name="username" autofocus="" autocapitalize="none" class="form-control-sm"
+                    placeholder="Email address" autocomplete="username" maxlength="254" required="" id="id_username">
+            </div>
+            <div>
+                <label for="id_password" class="sr-only">Password:</label>
+                <input type="password" name="password" autocomplete="current-password" required="" id="id_password"
+                       placeholder="Password" class="form-control-sm">
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-success" type="submit">Подтвердить</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <div class="row mt-4">
+        {% for foo in advertisement_list %}
+        <div class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-auto ">
+                <div class="col p-4 d-flex flex-column position-static">
+                    {% if user.is_staff or user.is_superuser%}
+                        <div class="btn-group">
+                            <form action="{% url 'adv_board:hidden-adv' foo.pk %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" >Скрыть</button>
+                            </form>
+                            <form action="{% url 'adv_board:locked-adv' foo.id_user %}" method="POST">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-outline-secondary" type="submit">заблокировать</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                    <h3 class="mb-0">{{ foo.title }}</h3>
+                    <div class="mb-1 text-muted">{{ foo.date_creation }}</div>
+                    <p class="card-text mb-auto border-top border-bottom">{{ foo.description|truncatechars:20 }}</p>
+                    <h3 class="mb-1">{{ foo.price }}.грн</h3>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ foo.get_absolute_url }}">Подробнее...</a>
+                        <small class="text-muted">Количество просмотров {{ foo.count_view }}</small>
+                    </div>
+                </div>
+                <div>
+                {% if foo.image %}
+                    <img src="{{ foo.image.url }}" height="250" width="200">
+                {% else %}
+                    <image src="{% static 'img/no_img.png' %}" height="250" width="200"></image>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+        <div class="text-center mb-2">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary">prev</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-success">next</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock main %}

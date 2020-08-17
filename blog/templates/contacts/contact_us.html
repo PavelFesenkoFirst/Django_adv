@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+<form class="form" action="{% url 'contacts:contact-us' %}" method="POST">
+    {% csrf_token %}
+    <div class="card-header">
+        <h4 class="card-header">Форма обратной связи</h4>
+    </div>
+
+    <div class="card-header">
+        <ul class="row-cols-lg-3 ">
+            <li>
+                <p>Введите тему сообщения</p>
+                {{ form.subject }}
+            </li>
+            <li>
+                <p>Введите Ваше сообщение</p>
+                {{ form.message }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-header btn-block">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Отправить</button>
+    </div>
+</form>
+{% endblock main %}

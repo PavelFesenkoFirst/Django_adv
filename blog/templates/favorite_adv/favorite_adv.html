@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <div class="row mt-4">
+    {% for item in fav_list %}
+        {% with fav=item.id_adv %}
+        <div class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-auto ">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0">{{ fav }}</h3>
+                    <div class="mb-1 text-muted">{{ fav.date_creation }}</div>
+                    <p class="card-text mb-auto border-top border-bottom">{{ fav.description|truncatechars:20 }}</p>
+                    <h3 class="mb-1">{{ fav.price }}.грн</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ fav.get_absolute_url }}">Подробнее...</a>
+                        <small class="text-muted">Количество просмотров {{ fav.count_view }}</small>
+                    </div>
+                </div>
+                <svg focusable="false" role="img" width="200" height="250">
+                    <rect height="100%" width="100%" fill="#55595c"></rect>
+                    <text x="40%" y="50%" fill="#eceeef">Photo</text>
+                </svg>
+            </div>
+        </div>
+        {% endwith %}
+    {% endfor %}
+    </div>
+{% endblock %}

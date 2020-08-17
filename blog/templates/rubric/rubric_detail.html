@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <h1 class="font-weight-bold text-center">{{ rubrics.name|title }}</h1>
+    {% for foo in rubrics.rubric.all %}
+        <div class="my-3 p-3 bg-white rounded shadow-sm">
+            <h2 class="border-bottom border-dark pb-2 mb-0">{{ foo.name|title }}</h2>
+            <div class="row text-muted pt-3">
+                <p class="media-body pb-3 mb-0 pl-3 small border-dark">
+                    В данной категории содержиться {{ foo.adv_category.count }} объявлений.
+                </p>
+                <p class="media-body pb-3 mb-0 small border-dark">
+                    Здесь собраны объявления которые может быть когда-то кто-то увидит, а может быть и нет (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+                </p>
+                <a class="btn btn-secondary m-2" href="{{ foo.get_absolute_url }}">Подробнее...</a>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock main %}

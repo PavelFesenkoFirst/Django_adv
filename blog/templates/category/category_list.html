@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block main %}
+    {% for catgegory in category_list %}
+        <div class="my-3 p-3 bg-white rounded shadow-sm">
+            <h2 class="border-bottom border-dark pb-2 mb-0">{{ catgegory.name }} </h2>
+            <div class="row text-muted pt-3">
+                <p class="media-body pb-3 mb-0 pl-3 small border-dark">
+                    В данной категории размещено {{ catgegory.adv_category.count }} объявлений
+                </p>
+                <p class="media-body pb-3 mb-0 small border-dark">
+                    По поводу описания категории можно заметить разницу, если перейти в категории через вкладку "Рубрики".
+                    Но наполнение категорий объявлениями одинаковое (ノಠ益ಠ)ノ彡┻━┻
+                </p>
+                <a class="btn btn-secondary m-4" href="{{ catgegory.get_absolute_url }}">Подробнее...</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock main %}

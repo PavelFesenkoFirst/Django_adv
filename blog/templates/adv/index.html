@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <div class="row mt-4">
+        {% for adv in adv_list %}
+            <div class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-auto ">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0">{{ adv.title }}</h3>
+                    <div class="mb-1 text-muted">{{ adv.date_creation }}</div>
+                    <p class="card-text mb-auto border-top border-bottom">{{ adv.description|truncatechars:20 }}</p>
+                    <h3 class="mb-1">{{ adv.price }}.грн</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ adv.get_absolute_url }}">Подробнее...</a>
+                        <small class="text-muted">Количество просмотров {{ adv.count_view }}</small>
+                    </div>
+                </div>
+                <div>
+                {% if foo.image %}
+                    <img src="{{ foo.image.url }}" height="250" width="200">
+                {% else %}
+                    <image src="{% static 'img/no_img.png' %}" height="250" width="200"></image>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="align-items-center mb-3">
+        <a class="btn btn-success"  href="{% url 'adv_board:adv-list' %}">Больше тут</a>
+    </div>
+{% endblock main %}
