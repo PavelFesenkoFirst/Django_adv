@@ -17,10 +17,13 @@
                             <small class="text-muted">Количество просмотров {{ foo.count_view }}</small>
                         </div>
                     </div>
-                    <svg focusable="false" role="img" width="200" height="250">
-                        <rect height="100%" width="100%" fill="#55595c"></rect>
-                        <text x="40%" y="50%" fill="#eceeef">Photo</text>
-                    </svg>
+                    <div>
+                    {% if foo.image %}
+                        <img src="{{ foo.image.url }}" height="250" width="200">
+                    {% else %}
+                        <image src="{% static 'img/no_img.png' %}" height="250" width="200"></image>
+                    {% endif %}
+                    </div>
                 </div>
             </div>
         {% endfor %}

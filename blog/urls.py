@@ -23,7 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.adv_board.urls', namespace='adv_board')),
     path('users/', include('apps.users.urls', namespace='users')),
-    path('contact_us/', include('apps.contacts.urls', namespace='contacts'))
+    path('api/v1/adv_board/', include('apps.api.v1.adv_board.urls')),
+    path('api/v1/adv_board/auth/', include('rest_framework.urls')),
+    path('contact_us/', include('apps.contacts.urls', namespace='contacts')),
+    path('location/', include('apps.location.urls', namespace='location')),
 
 ]
 if settings.DEBUG:

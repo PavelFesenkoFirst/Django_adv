@@ -5,18 +5,18 @@ from django.conf import settings
 from django.urls import reverse
 
 from .managers import CustomUserManager
+from apps.location.models import CityLocation
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20, unique=True)
-    secret_key = models.IntegerField(verbose_name='ключ активации', default=0)
-    confirm = models.BooleanField(default=False)
+    location = models.ForeignKey(CityLocation, on_delete=models.CASCADE, null=True, related_name='city')
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    #last_login = models.DateTimeField(auto_now=True)
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone']
@@ -33,7 +33,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         )
 
     def get_absolute_url(self):
-        return reverse('user:profile', kwargs={'pk': self.pk})
+        return reverse('users:profile')
 
 
     def save(self, *args, **kwargs):

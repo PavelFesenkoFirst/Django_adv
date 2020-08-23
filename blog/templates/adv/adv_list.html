@@ -20,9 +20,9 @@
                         </div>
                     {% endif %}
                     <h3 class="mb-0">{{ foo.title }}</h3>
-                    <div class="mb-1 text-muted">{{ foo.date_creation }}</div>
+                    <div class="mb-1 text-muted">{{ foo.date_creation }} {{ foo.location_a }}</div>
                     <p class="card-text mb-auto border-top border-bottom">{{ foo.description|truncatechars:20 }}</p>
-                    <h3 class="mb-1">{{ foo.price }}.грн</h3>
+                    <h3 class="mb-1">{{ foo.price }}.грн </h3>
 
                     <div class="d-flex justify-content-between align-items-center">
                         <a href="{{ foo.get_absolute_url }}">Подробнее...</a>

@@ -1,8 +1,12 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.conf import settings
+from django.core.mail import send_mass_mail
 
 from apps.users.models import CustomUser
+from apps.location.models import CityLocation
+from django.conf import settings
 
 
 # Create your models here.
@@ -54,16 +58,16 @@ class Category(models.Model):
 class Advertisement(models.Model):
     title = models.CharField(max_length=128, verbose_name='заголовок')
     id_category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='adv_category')
-    description = models.TextField(verbose_name='описание')
-    image = models.ImageField(verbose_name='изображение', upload_to='advertisement', blank=True, null=True,)
     id_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='adv_user')
+    location_a = models.ForeignKey(CityLocation, on_delete=models.CASCADE, null=True, related_name='adv_location')
+    description = models.TextField(verbose_name='описание')
+    image = models.ImageField(verbose_name='изображение', upload_to='photoa', blank=True, null=True,)
     date_creation = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     date_upd = models.DateTimeField(auto_now=True, verbose_name='дата изменения')
     in_active = models.BooleanField(default=False, verbose_name='статус')
     in_moderation = models.BooleanField(default=True, verbose_name='проверка')
     is_locked = models.BooleanField(default=False, verbose_name='заблокировано')
     count_view = models.IntegerField(default=0, verbose_name='просмотры')
-    status_vip = models.BooleanField(default=False, verbose_name='vip')
     price = models.IntegerField(verbose_name='цена')
 
     class Meta:
@@ -79,6 +83,15 @@ class Advertisement(models.Model):
     def __str__(self):
         return self.title
 
+    messages = (
+        ('Новое объявление', f'На сайте зарегистрированно новое объявление, проверьте его',
+         settings.EMAIL_HOST_USER, ['truemewmoonkloom@gmail.com']),
+        ('Новое объявление', f'На сайте зарегистрированно новое объявление, проверьте его',
+         settings.EMAIL_HOST_USER, ['pavelfesenko.work@gmail.com']),
+    )
+
+    def email_send(self):
+        send_mass_mail(self.messages)
 
 class FavoriteAd(models.Model):
     id_adv = models.ForeignKey(Advertisement, on_delete=models.CASCADE, null=True, related_name='favorite_adv')
@@ -87,7 +100,9 @@ class FavoriteAd(models.Model):
     def __str__(self):
         return self.id_adv.title
 
+
     def save(self, *args, **kwargs):
+
         super().save(*args, **kwargs)
 
 

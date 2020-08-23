@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'apps.adv_board',
     'apps.users',
     'apps.contacts',
+    'apps.location',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +125,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+FAVOURITE_SESSION_ID = 'favourite'
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
@@ -138,3 +142,11 @@ LOGIN_URL = '/users/login/'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTHENTICATION_BACKENDS = ('apps.users.backends.AuthModelBackend',)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'truemewmoonkloom@gmail.com'
+EMAIL_HOST_PASSWORD = 'q71631990W6151e'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

@@ -5,6 +5,7 @@ from apps.contacts.forms import ContactUsModelForm
 
 
 def contact_us(request):
+    """Форма обратной связи с администрацией"""
     context = {}
     form = ContactUsModelForm(request.POST)
 
@@ -16,6 +17,7 @@ def contact_us(request):
             objc.email = request.user
             objc.phone = request.user.phone
             objc.save()
+            objc.email_send()
             return HttpResponseRedirect('/')
     else:
         context['form'] = form

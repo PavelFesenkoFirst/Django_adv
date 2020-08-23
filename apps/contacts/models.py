@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from django.core.mail import send_mass_mail
 
 # Create your models here.
 
@@ -8,9 +10,7 @@ class Contacts(models.Model):
     address = models.TextField()
     phone = models.CharField(max_length=20)
 
-    def save(self, *args, **kwargs):
-        self.pk = 1
-        super().save(*args, **kwargs)
+
 
     @classmethod
     def load(cls):
@@ -35,3 +35,21 @@ class ContactUs(models.Model):
 
     class Meta:
         verbose_name_plural = 'contact us'
+
+    def __str__(self):
+        return self.name
+
+
+    messages = (
+        ('Новое сообщение', f'На сайте зарегистрированно новая "форма связи", проверьте его',
+         settings.EMAIL_HOST_USER, ['truemewmoonkloom@gmail.com']),
+        ('Новое сообщение', f'На сайте зарегистрированно новая "форма связи", проверьте его',
+         settings.EMAIL_HOST_USER, ['pavelfesenko.work@gmail.com']),
+    )
+
+    def email_send(self):
+        send_mass_mail(self.messages)
+
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)

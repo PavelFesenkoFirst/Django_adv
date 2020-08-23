@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Advertisement)
 class AdvertisementAdmin(admin.ModelAdmin):
     list_display = ('title', 'id_category', 'id_user', 'date_creation', 'date_upd', 'in_active', 'in_moderation',
-                    'is_locked', 'status_vip')
+                    'is_locked')
 
 @admin.register(FavoriteAd)
 class FavoriteAdAdmin(admin.ModelAdmin):

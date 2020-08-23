@@ -2,9 +2,14 @@
 {% load static %}
 
 {% block main %}
-    <h2 class="font-weight-bold text-center mt-5 mb-5">{{ user.name }} {{ user.surname }}</h2>
+    <h2 class="font-weight-bold text-center mt-5 mb-5">{{ user.name }} {{ user.surname }} </h2>
+    <h6 class="font-weight-bold text-center mt-5 mb-5">
+        <a href="{% url 'users:edit_name' user.pk%}">Редактировать</a> Имя и Фамилию
+    </h6>
     <div class="card-text mb-auto border-top border-bottom">
         <h4 class="mb-2">Контактная информация: </h4>
+        <h4 class="mb-2">Город: {{ user.location }}</h4>
+        <h5>Изменить город: <a href="{% url 'users:edit_city' user.pk %}">Редактировать</a></h5>
         <h4 class="mb-2">Email: {{ user.email }}</h4>
         <h4 class="mb-2">Контактный телефон: {{ user.phone }}</h4>
         <h4 class="mb-2">Дата регистрации на сайте: {{ user.date_joined }}</h4>
@@ -18,6 +23,7 @@
                     <div class="media-body pb-3 mb-0 small border-bottom border-gray">
                         <div class="d-flex justify-content-between align-items-center w-100">
                             <strong class="text-dark">{{ foo.title }}</strong>
+
                             <a href="{% url 'adv_board:adv_edit' foo.pk %}">Редактировать</a>
                         </div>
                         <span class="d-block">{{ foo.date_creation }}</span>

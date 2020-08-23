@@ -6,15 +6,30 @@
         <h4>Board</h4>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'adv_board:index' %}">На главную</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'adv_board:rubric-list' %}">Рубрики</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'adv_board:category-list' %}">Категории</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'adv_board:index' %}">На главную</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'adv_board:rubric-list' %}">Рубрики</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'adv_board:category-list' %}">Категории</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'adv_board:index' %}">На главную</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'adv_board:rubric-list' %}">Рубрики</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'adv_board:category-list' %}">Категории</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'adv_board:favourite'%}">Избраное</a>
+                    </li>
+                {% endif %}
             </ul>
             <form class="form-inline mt-2 mt-md-0" action="{% url 'adv_board:search' %}" method="get">
                 <div>

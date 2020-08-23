@@ -10,4 +10,4 @@ class ContactsAdmin(admin.ModelAdmin):
 
 @admin.register(ContactUs)
 class ContactUsAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'created_at')

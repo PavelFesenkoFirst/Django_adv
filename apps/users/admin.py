@@ -7,7 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    list_display = ('email', 'phone', 'secret_key', 'date_joined', 'is_active', 'confirm', 'id')
+    list_display = ('email', 'phone', 'date_joined', 'is_active', 'id')
     readonly_fields = ('date_joined',)
     ordering = ('-date_joined',)
     exclude = ('username',)

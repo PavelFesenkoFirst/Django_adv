@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+
+    {% for item in favourite %}
+        {% with favo=item.favo %}
+            <div class="my-3 p-3 bg-white rounded shadow-sm">
+                <div class="text-center mt-3 mb-3">
+                    <a href="{{ favo.get_absolute_url }}">
+                        {% if fav.image %}
+                        <img class="img-responsive" src="{{ fav.image.url }}" alt="{{ fav.title }}" height="80">
+                        {% else %}
+                        <img class="img-responsive" src="{% static 'img/no_img.png' %}" alt="{{ fav.title }}" height="80">
+                        {% endif %}
+                    </a>
+                    <h2 class="border-bottom border-dark pb-2 mb-0">{{ favo.title }}</h2>
+                </div>
+                <div class="row text-muted pt-3">
+                    <p class="media-body pb-3 mb-0 ml-2 pl-3 pr-2 small border-dark">
+                        Цена: {{ favo.price }};
+                        Расположение: {{ favo.location_a }}
+                    </p>
+                    <p class="media-body pb-3 mb-0 small border-dark">
+                        Описание: {{ favo.description }}
+                    </p>
+                    <a class="btn btn-secondary m-2" href="{{ favo.get_absolute_url }}">Подробнее...</a>
+                </div>
+            </div>
+        {% endwith %}
+    {% endfor %}
+
+
+{% endblock main %}

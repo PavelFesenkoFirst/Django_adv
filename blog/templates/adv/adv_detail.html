@@ -4,27 +4,22 @@
 {% block main %}
 
     <h1 class="font-weight-bold text-center">{{ adv_op.title }}</h1>
-    <h3 class="border-top border-bottom text-justify text-left pt-2 pb-3">{{ adv_op.description }}</h3>
+    <div class="text-center mt-3 mb-3">
     {% if adv_op.image %}
-        <img src="{{ adv_op.image.url }}" alt="{{ adv_op.title }}" width="150" height="150">
+        <img src="{{ adv_op.image.url }}" alt="{{ adv_op.title }}" width="300" height="350">
     {% else %}
         <img class="activator" src="{% static 'img/no_img.png' %}">
     {% endif %}
-     {{ adv_op.image.url }} ----- путь к файлу показывает
-    <div class="card-image">
-        {% if adv_op.image %}
-            <img class="activator" src="media/advertisement/{{ adv_op.image.url }} ">
-        {% else %}
-            <img class="activator" src="{% static 'img/no_img.png' %}">
-        {% endif %}
-        </div>
+    </div>
+    <h3 class="border-top border-bottom text-justify text-left pt-2 pb-3">{{ adv_op.description }}</h3>
 
-    {{ adv_op.image.url }}
     <div class="d-flex justify-content-between align-items-center">
-        <h5>Опубликовано в {{ adv_op.date_creation }}</h5>
-        <small class="text-muted">Количество просмотров объявления {{ adv_op.count_view }}</small>
+        <h5>Опубликовано в: {{ adv_op.date_creation }}</h5>
+        <h5>Город: {{ adv_op.location_a }}</h5>
+        <small class="text-muted">Количество просмотров объявления: {{ adv_op.count_view }}</small>
     </div>
     <h4>Стоимость: {{ adv_op.price }}.грн</h4>
+    <h5>Дата создания: {{ adv_op.date_creation }}</h5>
     {% if adv_op.in_active == True %}
         <h5>Актуально</h5>
     {% else %}

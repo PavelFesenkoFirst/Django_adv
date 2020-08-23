@@ -8,7 +8,7 @@
             <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-auto ">
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0">{{ adv.title }}</h3>
-                    <div class="mb-1 text-muted">{{ adv.date_creation }}</div>
+                    <div class="mb-1 text-muted">{{ adv.date_creation }} {{ adv.location_a }}</div>
                     <p class="card-text mb-auto border-top border-bottom">{{ adv.description|truncatechars:20 }}</p>
                     <h3 class="mb-1">{{ adv.price }}.грн</h3>
                     <div class="d-flex justify-content-between align-items-center">
